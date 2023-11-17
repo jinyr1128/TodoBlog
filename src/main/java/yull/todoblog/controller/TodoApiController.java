@@ -12,7 +12,7 @@ import yull.todoblog.service.BlogService;
 
 @RequiredArgsConstructor
 @RestController
-public class TodoController {
+public class TodoApiController {
 
     private final BlogService blogService;
 
