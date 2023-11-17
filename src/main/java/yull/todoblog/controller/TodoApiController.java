@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yull.todoblog.domain.Article;
 import yull.todoblog.dto.AddArticleRequest;
+import yull.todoblog.dto.UpdateArticleRequest;
 import yull.todoblog.repository.ArticleResponse;
 import yull.todoblog.service.BlogService;
 
@@ -44,5 +45,15 @@ public class TodoApiController {
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id){
         blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request){
+        Article updateArticle = blogService.update(id ,request);
+
+        return ResponseEntity.ok()
+                .body(updateArticle);
     }
 }
