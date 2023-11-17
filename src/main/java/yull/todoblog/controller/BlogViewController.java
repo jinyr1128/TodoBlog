@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import yull.todoblog.domain.Article;
 import yull.todoblog.dto.ArticleListViewResponse;
 import yull.todoblog.service.BlogService;
@@ -32,5 +33,15 @@ public class BlogViewController {
         Article article = blogService.findById(id);
         model.addAttribute("article", new ArticleListViewResponse(article));
         return "article";
+    }
+    @GetMapping("/new-article")
+    public String newArticle(@RequestParam(required = false)Long id, Model model){
+        if (id == null){
+            model.addAttribute("article", new ArticleListViewResponse());
+        }else {
+            Article article = blogService.findById(id);
+            model.addAttribute("article", new ArticleListViewResponse(article));
+        }
+        return "newArticle";
     }
 }
