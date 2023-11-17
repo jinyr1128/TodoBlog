@@ -25,4 +25,7 @@ public class BlogService {
         return todoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(" 찾을수 없습니다 : " + id ));
     }
+    public void delete(long id){
+        todoRepository.deleteById(id);
+    }
 }
