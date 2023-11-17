@@ -1,4 +1,4 @@
-package yull.todoblog.repository;
+package yull.todoblog.dto;
 
 import yull.todoblog.domain.Article;
 
