@@ -1,6 +1,5 @@
 package yull.todoblog.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import yull.todoblog.domain.Article;
 import yull.todoblog.dto.AddArticleRequest;
 import yull.todoblog.dto.UpdateArticleRequest;
-import yull.todoblog.repository.ArticleResponse;
+import yull.todoblog.dto.ArticleResponse;
 import yull.todoblog.service.BlogService;
 
 import java.util.List;
