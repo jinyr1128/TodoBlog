@@ -6,6 +6,8 @@ import yull.todoblog.domain.Article;
 import yull.todoblog.dto.AddArticleRequest;
 import yull.todoblog.repository.TodoRepository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class BlogService {
@@ -14,5 +16,9 @@ public class BlogService {
 
     public Article save(AddArticleRequest request){
         return todoRepository.save(request.toEntitiy());
+    }
+
+    public List<Article> findAll(){
+        return todoRepository.findAll();
     }
 }
