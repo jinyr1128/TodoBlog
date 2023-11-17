@@ -21,4 +21,8 @@ public class BlogService {
     public List<Article> findAll(){
         return todoRepository.findAll();
     }
+    public Article findById(long id){
+        return todoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(" 찾을수 없습니다 : " + id ));
+    }
 }
