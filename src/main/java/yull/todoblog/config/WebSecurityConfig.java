@@ -9,9 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import yull.todoblog.service.UserDetailService;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+import yull.todoblog.service.UserDetailService;
+
 
 @RequiredArgsConstructor
 @Configuration
