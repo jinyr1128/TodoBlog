@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import yull.todoblog.domain.Article;
 import yull.todoblog.dto.ArticleListViewResponse;
+import yull.todoblog.dto.ArticleViewResponse;
 import yull.todoblog.service.BlogService;
 
 import java.util.List;
@@ -35,13 +36,14 @@ public class BlogViewController {
         return "article";
     }
     @GetMapping("/new-article")
-    public String newArticle(@RequestParam(required = false)Long id, Model model){
-        if (id == null){
-            model.addAttribute("article", new ArticleListViewResponse());
-        }else {
+    public String newArticle(@RequestParam(required = false) Long id, Model model) {
+        if (id == null) {
+            model.addAttribute("article", new ArticleViewResponse());
+        } else {
             Article article = blogService.findById(id);
-            model.addAttribute("article", new ArticleListViewResponse(article));
+            model.addAttribute("article", new ArticleViewResponse(article));
         }
+
         return "newArticle";
     }
 }
