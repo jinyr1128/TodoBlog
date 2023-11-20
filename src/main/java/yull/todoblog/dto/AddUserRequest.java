@@ -18,4 +18,4 @@ public class AddUserRequest {
         return password != null && password.matches("^[a-zA-Z0-9]{8,15}$");
     }
 }
-}
+
