@@ -9,7 +9,7 @@ import yull.todoblog.repository.RefreshTokenRepository;
 @Service
 public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
-
+    // 리프레시 토큰으로 토큰 찾기
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected token"));

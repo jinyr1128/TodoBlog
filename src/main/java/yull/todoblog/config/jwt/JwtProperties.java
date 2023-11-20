@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 @Setter
 @Getter
 @Component
-@ConfigurationProperties("jwt")
+@ConfigurationProperties("jwt")// JwtProperties 클래스: JWT 설정을 위한 속성을 관리하는 클래스
 public class JwtProperties {
-
-    private String issuer;
-    private String secretKey;
+    private String issuer;    // 발행자
+    private String secretKey; // 비밀키
 }
