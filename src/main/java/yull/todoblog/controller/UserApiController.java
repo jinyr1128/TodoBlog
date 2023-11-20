@@ -27,34 +27,36 @@ import java.time.Duration;
 
 @RequiredArgsConstructor
 @Controller
+// UserApiController: 사용자 관련 API 요청을 처리하는 컨트롤러
 public class UserApiController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final TokenProvider tokenProvider;
+    private final AuthenticationManager authenticationManager; // 인증 관리자
+    private final TokenProvider tokenProvider; // 토큰 제공자
 
+    // 사용자 회원가입 처리
     @PostMapping("/user")
     public String signup(AddUserRequest request) {
         userService.save(request);
-        return "redirect:/login";
+        return "redirect:/login"; // 로그인 페이지로 리디렉션
     }
 
+    // 사용자 로그아웃 처리
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/login";
+        return "redirect:/login"; // 로그인 페이지로 리디렉션
     }
 
+    // 사용자 로그인 처리 및 JWT 토큰 발급
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwt = tokenProvider.generateToken(userDetails, Duration.ofHours(2));
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + jwt);
         return new ResponseEntity<>(new JWTToken(jwt), headers, HttpStatus.OK);

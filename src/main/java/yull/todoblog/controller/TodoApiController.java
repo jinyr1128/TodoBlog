@@ -16,81 +16,47 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+// TodoApiController: 할 일(Todo) 관련 API 요청을 처리하는 컨트롤러
 public class TodoApiController {
 
     private final BlogService blogService;
-    private final TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider; // 토큰 제공자
 
+    // 새 게시글 추가 API
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = blogService.save(request);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedArticle);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
 
+    // 게시글 목록 조회 API
     @GetMapping("/api/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = blogService.findAll()
                 .stream()
                 .map(ArticleResponse::new)
                 .toList();
-
-        return ResponseEntity.ok()
-                .body(articles);
+        return ResponseEntity.ok().body(articles);
     }
 
+    // 특정 게시글 조회 API
     @GetMapping("/api/articles/{id}")
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
         Article article = blogService.findById(id);
-
-        return ResponseEntity.ok()
-                .body(new ArticleResponse(article));
+        return ResponseEntity.ok().body(new ArticleResponse(article));
     }
 
+    // 게시글 삭제 API
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
         blogService.delete(id);
-
-        return ResponseEntity.ok()
-                .build();
+        return ResponseEntity.ok().build();
     }
 
+    // 게시글 수정 API
     @PutMapping("/api/articles/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request) {
-        Article updateArticle = blogService.update(id, request);
-
-        return ResponseEntity.ok()
-                .body(updateArticle);
-    }
-
-    @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request,
-                                              @RequestHeader("Authorization") String authToken) {
-        if (!tokenProvider.validToken(authToken)) {
-            throw new IllegalArgumentException("Invalid token");
-        }
-
-        Article article = blogService.save(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(article);
-    }
-
-    @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleResponse> getArticle(@PathVariable Long id) {
-        Article article = blogService.findById(id);
-        return ResponseEntity.ok(new ArticleResponse(article));
-    }
-    @GetMapping("/api/articles")
-    public ResponseEntity<List<ArticleResponse>> getAllArticles() {
-        List<Article> articles = blogService.findAll();
-        List<ArticleResponse> responses = articles.stream()
-                .map(ArticleResponse::new)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(responses);
-    }
-    @PutMapping("/api/articles/{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody UpdateArticleRequest request) {
         Article updatedArticle = blogService.update(id, request);
-        return ResponseEntity.ok(updatedArticle);
+        return ResponseEntity.ok().body(updatedArticle);
     }
 }
-

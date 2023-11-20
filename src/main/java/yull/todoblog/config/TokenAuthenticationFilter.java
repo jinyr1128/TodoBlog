@@ -12,14 +12,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
-
+// TokenAuthenticationFilter 클래스: JWT 토큰을 이용한 인증 처리를 위한 필터
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
-    private final TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;// JWT 토큰 처리를 위한 TokenProvider
 
     private final static String HEADER_AUTHORIZATION = "Authorization";
     private final static String TOKEN_PREFIX = "Bearer ";
 
+    // HTTP 요청을 필터링하는 메서드
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -36,7 +37,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
+    // Authorization 헤더에서 JWT 토큰을 추출하는 메서드
     private String getAccessToken(String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith(TOKEN_PREFIX)) {
             return authorizationHeader.substring(TOKEN_PREFIX.length());

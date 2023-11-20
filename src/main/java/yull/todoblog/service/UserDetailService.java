@@ -12,6 +12,7 @@ public class UserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    // 이메일로 사용자 찾기
     @Override
     public User loadUserByUsername(String email) {
         return userRepository.findByEmail(email)

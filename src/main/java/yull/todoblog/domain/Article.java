@@ -13,33 +13,37 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+// Article: 게시글에 관한 엔티티 클래스
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
-    private Long id;
+    private Long id; // 고유 ID
 
-    @Column(name = " title", nullable = false)
-    private String title;
+    @Column(name = "title", nullable = false)
+    private String title; // 게시글 제목
 
     @Column(name = "content", nullable = false)
-    private String content;
+    private String content; // 게시글 내용
 
     @CreatedDate
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // 생성 시간
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt; // 수정 시간
 
+    // 생성자
     @Builder
     public Article(String title, String content) {
         this.title = title;
         this.content = content;
     }
-    public void update(String title,String content){
+
+    // 게시글 수정 메서드
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
