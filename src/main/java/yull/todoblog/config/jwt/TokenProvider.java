@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import yull.todoblog.domain.User;
 
@@ -72,5 +73,19 @@ public class TokenProvider {
                 .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody();
+    }
+    public String generateToken(UserDetails userDetails, Duration expiredAt) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + expiredAt.toMillis());
+
+        return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setIssuer(jwtProperties.getIssuer())
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .setSubject(userDetails.getUsername()) // userDetails에서 username 가져오기
+                // .claim("id", user.getId()) // 필요하다면 추가적인 클레임을 설정할 수 있습니다.
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
+                .compact();
     }
 }

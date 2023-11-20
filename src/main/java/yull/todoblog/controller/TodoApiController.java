@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import yull.todoblog.config.jwt.TokenProvider;
 import yull.todoblog.domain.Article;
 import yull.todoblog.dto.AddArticleRequest;
 import yull.todoblog.dto.UpdateArticleRequest;
@@ -17,6 +18,7 @@ import java.util.List;
 public class TodoApiController {
 
     private final BlogService blogService;
+    private final TokenProvider tokenProvider;
 
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle (@RequestBody AddArticleRequest request){
@@ -54,5 +56,15 @@ public class TodoApiController {
 
         return ResponseEntity.ok()
                 .body(updateArticle);
+    }
+    @PostMapping("/api/articles")
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request,
+                                              @RequestHeader("Authorization") String authToken) {
+        if (!tokenProvider.validToken(authToken)) {
+            throw new IllegalArgumentException("Invalid token");
+        }
+
+        Article article = blogService.save(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(article);
     }
 }
