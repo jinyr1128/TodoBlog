@@ -12,6 +12,7 @@ import yull.todoblog.dto.ArticleResponse;
 import yull.todoblog.service.BlogService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -77,6 +78,19 @@ public class TodoApiController {
     public ResponseEntity<ArticleResponse> getArticle(@PathVariable Long id) {
         Article article = blogService.findById(id);
         return ResponseEntity.ok(new ArticleResponse(article));
+    }
+    @GetMapping("/api/articles")
+    public ResponseEntity<List<ArticleResponse>> getAllArticles() {
+        List<Article> articles = blogService.findAll();
+        List<ArticleResponse> responses = articles.stream()
+                .map(ArticleResponse::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+        return ResponseEntity.ok(updatedArticle);
     }
 }
 
