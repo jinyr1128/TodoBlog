@@ -1,6 +1,7 @@
 package yull.todoblog.domain;
 
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class UserTest {
     private EntityManager entityManager;
 
     @Test
+    @DisplayName("User 객체 생성 및 필드 검증 테스트")
     public void testUserCreationAndFields() {
         // given: User 객체 생성
         String email = "test@example.com";
@@ -43,6 +45,7 @@ public class UserTest {
     }
 
     @Test
+    @DisplayName("UserDetails 인터페이스 구현 검증 테스트")
     public void testUserDetailsImplementation() {
         // given: UserDetails로서의 User 객체 생성
         User user = User.builder()

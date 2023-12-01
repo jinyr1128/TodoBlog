@@ -1,6 +1,7 @@
 package yull.todoblog.controller;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +36,7 @@ public class CommentControllerTest {
     }
 
     @Test
+    @DisplayName("댓글 생성 테스트")
     public void testCreateComment() throws Exception {
         // given
         String content = "Test Comment Content";
@@ -55,6 +57,7 @@ public class CommentControllerTest {
     }
 
     @Test
+    @DisplayName("댓글 수정 테스트")
     public void testUpdateComment() throws Exception {
         // given
         String updatedContent = "Updated Comment Content";
@@ -77,6 +80,7 @@ public class CommentControllerTest {
 
 
     @Test
+    @DisplayName("댓글 삭제 테스트")
     public void testDeleteComment() throws Exception {
         // given
         doNothing().when(commentService).deleteComment(anyLong());

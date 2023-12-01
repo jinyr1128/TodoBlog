@@ -1,5 +1,6 @@
 package yull.todoblog.dto;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UpdateArticleRequestTest {
 
     @Test
+    @DisplayName("UpdateArticleRequest 필드 검증 테스트")
     public void testArticleUpdateRequestFields() {
         // given: 수정할 제목과 내용으로 객체 생성
         String expectedTitle = "Updated Title";

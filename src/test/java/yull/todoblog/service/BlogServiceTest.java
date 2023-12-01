@@ -43,7 +43,7 @@ public class BlogServiceTest {
     }
 
     @Test
-    @DisplayName("새로운 게시글 저장 테스트")
+    @DisplayName("새로운 게시글을 저장할 때 성공적으로 수행되어야 한다")
     public void testSaveArticle() {
         // given
         AddArticleRequest request = new AddArticleRequest(/* request parameters */);
@@ -66,7 +66,7 @@ public class BlogServiceTest {
     }
 
     @Test
-    @DisplayName("모든 게시글 조회 테스트")
+    @DisplayName("모든 게시글을 조회할 때 리스트를 반환해야 한다")
     public void testFindAllArticles() {
         // given
         Article article1 = Article.builder().author("user1").title("Title1").content("Content1").build();
@@ -82,7 +82,7 @@ public class BlogServiceTest {
     }
 
     @Test
-    @DisplayName("ID를 사용한 게시글 조회 테스트")
+    @DisplayName("ID로 게시글을 찾을 때 해당 게시글을 반환해야 한다")
     public void testFindById() {
         // given
         long id = 1L;
@@ -99,7 +99,7 @@ public class BlogServiceTest {
     }
 
     @Test
-    @DisplayName("게시글 업데이트 테스트")
+    @DisplayName("기존 게시글을 업데이트할 때 성공적으로 수행되어야 한다")
     public void testUpdateArticle() {
         // given
         long id = 1L;
@@ -119,7 +119,7 @@ public class BlogServiceTest {
 
     // delete 메서드에 대한 테스트
     @Test
-    @DisplayName("게시글 삭제 테스트")
+    @DisplayName("게시글을 삭제할 때 성공적으로 수행되어야 한다")
     public void testDeleteArticle() {
         // given
         long id = 1L;

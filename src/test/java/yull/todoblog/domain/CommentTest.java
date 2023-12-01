@@ -1,6 +1,7 @@
 package yull.todoblog.domain;
 
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class CommentTest {
     private EntityManager entityManager;
 
     @Test
+    @DisplayName("댓글 생성 테스트")
     public void testCommentCreation() {
         // given: Comment 객체와 연관된 Article 객체 생성
         Article article = new Article("Author", "Title", "Content");
@@ -35,6 +37,7 @@ public class CommentTest {
     }
 
     @Test
+    @DisplayName("댓글 내용 업데이트 테스트")
     public void testUpdateCommentContent() {
         // given: Comment 객체 생성 및 저장
         Article article = new Article("Author", "Title", "Content");

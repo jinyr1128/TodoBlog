@@ -1,6 +1,7 @@
 package yull.todoblog.controller;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,6 +34,7 @@ public class UserApiControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(userApiController).build();
     }
     @Test
+    @DisplayName("회원가입 테스트")
     public void testSignup() throws Exception {
         // given
         AddUserRequest request = new AddUserRequest();
@@ -54,6 +56,7 @@ public class UserApiControllerTest {
     }
 
     @Test
+    @DisplayName("로그아웃 테스트")
     public void testLogout() throws Exception {
         // when & then
         mockMvc.perform(MockMvcRequestBuilders.get("/logout")) // get 메서드 호출 수정

@@ -1,6 +1,7 @@
 package yull.todoblog.domain;
 
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class ArticleTest {
     private EntityManager entityManager;
 
     @Test
+    @DisplayName("게시글 생성 테스트")
     public void testArticleCreation() {
         // given: 게시글 생성을 위한 준비
         String title = "Sample Title";
@@ -38,6 +40,7 @@ public class ArticleTest {
     }
 
     @Test
+    @DisplayName("게시글 수정 테스트")
     public void testArticleUpdate() {
         // given: 수정할 게시글 생성 및 초기화
         Article article = new Article("AuthorName", "Old Title", "Old Content");

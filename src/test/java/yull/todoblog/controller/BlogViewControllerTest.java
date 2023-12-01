@@ -1,6 +1,7 @@
 package yull.todoblog.controller;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +36,7 @@ public class BlogViewControllerTest {
     }
 
     @Test
+    @DisplayName("게시글 전체 조회 테스트")
     public void testGetArticles() throws Exception {
         // given: BlogService가 Article 목록을 반환하도록 모의 설정
         List<Article> articles = Arrays.asList(
@@ -53,6 +55,7 @@ public class BlogViewControllerTest {
     }
 
     @Test
+    @DisplayName("특정 게시글 조회 테스트")
     public void testGetArticle() throws Exception {
         // given: 특정 ID에 대해 BlogService가 Article 객체를 반환하도록 모의 설정
         Article mockArticle = Article.builder()
@@ -73,6 +76,7 @@ public class BlogViewControllerTest {
 
 
     @Test
+    @DisplayName("새 게시글 작성 페이지 이동 테스트")
     public void testNewArticle() throws Exception {
         // given: 새로운 게시글 작성을 위한 설정, BlogService 모의 객체 필요 없음
 
