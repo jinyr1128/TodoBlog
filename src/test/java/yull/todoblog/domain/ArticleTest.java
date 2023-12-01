@@ -40,7 +40,8 @@ public class ArticleTest {
     @Test
     public void testArticleUpdate() {
         // given: 수정할 게시글 생성 및 초기화
-        Article article = new Article("Old Title", "Old Content");
+        Article article = new Article("AuthorName", "Old Title", "Old Content");
+
         entityManager.persist(article);
         entityManager.flush();
 
