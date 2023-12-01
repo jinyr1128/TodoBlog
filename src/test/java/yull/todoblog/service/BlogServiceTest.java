@@ -1,6 +1,7 @@
 package yull.todoblog.service;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,6 +43,7 @@ public class BlogServiceTest {
     }
 
     @Test
+    @DisplayName("새로운 게시글 저장 테스트")
     public void testSaveArticle() {
         // given
         AddArticleRequest request = new AddArticleRequest(/* request parameters */);
@@ -64,6 +66,7 @@ public class BlogServiceTest {
     }
 
     @Test
+    @DisplayName("모든 게시글 조회 테스트")
     public void testFindAllArticles() {
         // given
         Article article1 = Article.builder().author("user1").title("Title1").content("Content1").build();
@@ -79,6 +82,7 @@ public class BlogServiceTest {
     }
 
     @Test
+    @DisplayName("ID를 사용한 게시글 조회 테스트")
     public void testFindById() {
         // given
         long id = 1L;
@@ -95,6 +99,7 @@ public class BlogServiceTest {
     }
 
     @Test
+    @DisplayName("게시글 업데이트 테스트")
     public void testUpdateArticle() {
         // given
         long id = 1L;
@@ -114,6 +119,7 @@ public class BlogServiceTest {
 
     // delete 메서드에 대한 테스트
     @Test
+    @DisplayName("게시글 삭제 테스트")
     public void testDeleteArticle() {
         // given
         long id = 1L;
