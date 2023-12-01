@@ -19,8 +19,6 @@ import yull.todoblog.service.UserService;
 public class UserApiController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager; // 인증 관리자
-    private final TokenProvider tokenProvider; // 토큰 제공자
 
     // 사용자 회원가입 처리
     @PostMapping("/user")

@@ -31,7 +31,7 @@ public class WebOAuthSecurityConfig {
     private final UserService userService;
 
     @Bean
-    public WebSecurityCustomizer configure() { //스프링 시큐리티 비활성홤ㅋ
+    public WebSecurityCustomizer configure() { //스프링 시큐리티 비활성화
         return (web) -> web.ignoring()
                 .requestMatchers(toH2Console())
                 .requestMatchers("/img/**", "/css/**", "/js/**");
