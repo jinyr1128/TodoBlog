@@ -1,7 +1,9 @@
 package yull.todoblog.dto;
 
+import lombok.Getter;
 import yull.todoblog.domain.Article;
 
+@Getter
 // ArticleResponse: 단일 게시글 조회 응답을 위한 DTO
 public class ArticleResponse {
 
