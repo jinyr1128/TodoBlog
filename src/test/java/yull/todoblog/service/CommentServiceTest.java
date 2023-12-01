@@ -1,6 +1,7 @@
 package yull.todoblog.service;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,12 +30,8 @@ public class CommentServiceTest {
         Article article = mock(Article.class);
         return article;
     }
-    @BeforeEach
-    public void setup() {
-        // 필요한 경우 setup 메서드에서 초기 설정을 수행
-    }
-
     @Test
+    @DisplayName("댓글 생성이 유효한 데이터로 요청될 때 성공적으로 수행되어야 한다")
     public void shouldCreateCommentWithValidData() {
         // given
         Long articleId = 1L;
@@ -52,6 +49,7 @@ public class CommentServiceTest {
     }
 
     @Test
+    @DisplayName("요청된 경우 댓글 업데이트가 성공적으로 수행되어야 한다")
     public void shouldUpdateCommentWhenRequested() {
         // given
         Long commentId = 1L;
@@ -69,6 +67,7 @@ public class CommentServiceTest {
     }
 
     @Test
+    @DisplayName("요청된 경우 댓글 삭제가 성공적으로 수행되어야 한다")
     public void shouldDeleteCommentWhenRequested() {
         // given
         Long commentId = 1L;
