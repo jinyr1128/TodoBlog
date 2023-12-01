@@ -18,27 +18,28 @@ import java.util.List;
 @Controller
 public class BlogViewController {
 
-    private final BlogService blogService; // 블로그 서비스
+    private final BlogService blogService;
 
-    // 게시글 목록 페이지를 반환하는 메서드
     @GetMapping("/articles")
-    public String getArticles(Model model){
-        List<ArticleListViewResponse> articles = blogService.findAll().stream()
+    public String getArticles(Model model) {
+        List<ArticleListViewResponse> articles = blogService.findAll()
+                .stream()
                 .map(ArticleListViewResponse::new)
                 .toList();
         model.addAttribute("articles", articles);
-        return "articleList"; // articleList 뷰 반환
+
+        return "articleList";
     }
 
-    // 특정 게시글의 상세 페이지를 반환하는 메서드
     @GetMapping("/articles/{id}")
-    public String getArticle(@PathVariable Long id, Model model){
+    public String getArticle(@PathVariable Long id, Model model) {
         Article article = blogService.findById(id);
-        model.addAttribute("article", new ArticleListViewResponse(article));
-        return "article"; // article 뷰 반환
+        model.addAttribute("article", new ArticleViewResponse(article));
+
+        return "article";
     }
 
-    // 새 게시글 작성 페이지를 반환하는 메서드
+
     @GetMapping("/new-article")
     public String newArticle(@RequestParam(required = false) Long id, Model model) {
         if (id == null) {
@@ -47,6 +48,7 @@ public class BlogViewController {
             Article article = blogService.findById(id);
             model.addAttribute("article", new ArticleViewResponse(article));
         }
-        return "newArticle"; // newArticle 뷰 반환
+
+        return "newArticle";
     }
 }

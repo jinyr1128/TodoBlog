@@ -29,12 +29,20 @@ public class User implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password; // 비밀번호
+    @Column(name = "nickname",unique = true)
+    private String nickname;
 
     // 생성자
     @Builder
-    public User(String email, String password) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+    }
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
     }
 
     // Spring Security UserDetails 인터페이스 메서드 구현

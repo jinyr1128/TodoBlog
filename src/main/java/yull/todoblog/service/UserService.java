@@ -9,24 +9,31 @@ import yull.todoblog.dto.AddUserRequest;
 import yull.todoblog.repository.UserRepository;
 
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserService {
+
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-    // 사용자 저장
     public Long save(AddUserRequest dto) {
-        validateEmail(dto.getEmail());
-        validatePassword(dto.getPassword());
-        checkEmailExists(dto.getEmail());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         return userRepository.save(User.builder()
                 .email(dto.getEmail())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+                .password(encoder.encode(dto.getPassword()))
                 .build()).getId();
     }
+    // ID로 사용자 찾기
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
 
     // 이메일 유효성 검사
     private void validateEmail(String email) {
@@ -47,11 +54,5 @@ public class UserService {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Email already exists");
         }
-    }
-
-    // ID로 사용자 찾기
-    public User findById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 }

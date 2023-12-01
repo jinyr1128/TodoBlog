@@ -11,6 +11,7 @@ import yull.todoblog.dto.UpdateArticleRequest;
 import yull.todoblog.dto.ArticleResponse;
 import yull.todoblog.service.BlogService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,11 +24,15 @@ public class TodoApiController {
     private final TokenProvider tokenProvider; // 토큰 제공자
 
     // 새 게시글 추가 API
+
     @PostMapping("/api/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = blogService.save(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+        Article savedArticle = blogService.save(request, principal.getName());
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedArticle);
     }
+
 
     // 게시글 목록 조회 API
     @GetMapping("/api/articles")

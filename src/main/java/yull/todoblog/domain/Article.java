@@ -26,6 +26,8 @@ public class Article {
 
     @Column(name = "content", nullable = false)
     private String content; // 게시글 내용
+    @Column(name = "author", nullable = false)
+    private String author;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -37,7 +39,8 @@ public class Article {
 
     // 생성자
     @Builder
-    public Article(String title, String content) {
+    public Article(String author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
     }
