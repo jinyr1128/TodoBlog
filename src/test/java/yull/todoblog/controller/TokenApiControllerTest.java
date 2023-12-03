@@ -2,7 +2,7 @@ package yull.todoblog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import yull.todoblog.config.jwt.JwtProperties;
-import yull.todoblog.congif.jwt.JwtFactory;
+import yull.todoblog.config.jwt.JwtFactory;
 import yull.todoblog.domain.RefreshToken;
 import yull.todoblog.domain.User;
 import yull.todoblog.dto.CreateAccessTokenRequest;

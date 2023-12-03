@@ -1,11 +1,10 @@
-package yull.todoblog.congif.jwt;
+package yull.todoblog.config.jwt;
 
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Builder;
 import lombok.Getter;
-import yull.todoblog.config.jwt.JwtProperties;
 
 import java.time.Duration;
 import java.util.Date;
