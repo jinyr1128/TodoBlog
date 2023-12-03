@@ -38,7 +38,7 @@ public class TodoRepositoryTest {
     @DisplayName("게시글 삭제 테스트")
     public void testDeleteArticle() {
         // given
-        Article newArticle = new Article("Test Title", "Test Content", "Test Author");
+        Article newArticle = new Article("Test Author", "Test Title", "Test Content");
         Article savedArticle = todoRepository.save(newArticle);
 
         // when
@@ -53,7 +53,7 @@ public class TodoRepositoryTest {
     @DisplayName("게시글 수정 테스트")
     public void testUpdateArticle() {
         // given
-        Article newArticle = new Article("Original Title", "Original Content", "Test Author");
+        Article newArticle = new Article("Original  Author", "Original Title", "Test Content");
         Article savedArticle = todoRepository.save(newArticle);
 
         // when
