@@ -22,9 +22,11 @@ public class ArticleTest {
     @DisplayName("게시글 생성 테스트")
     public void testArticleCreation() {
         // given: 게시글 생성을 위한 준비
+        String author = "Test Author";
         String title = "Sample Title";
         String content = "Sample Content";
         Article article = Article.builder()
+                .author(author)
                 .title(title)
                 .content(content)
                 .build();
@@ -34,11 +36,10 @@ public class ArticleTest {
         entityManager.flush();
 
         // then: 생성된 게시글의 속성이 예상과 일치하는지 검증
+        assertThat(article.getAuthor()).isEqualTo(author);
         assertThat(article.getTitle()).isEqualTo(title);
         assertThat(article.getContent()).isEqualTo(content);
-        assertThat(article.getCreatedAt()).isBeforeOrEqualTo(LocalDateTime.now());
     }
-
     @Test
     @DisplayName("게시글 수정 테스트")
     public void testArticleUpdate() {

@@ -27,6 +27,7 @@ public class Article {
 
     @Column(name = "content", nullable = false)
     private String content; // 게시글 내용
+
     @Column(name = "author", nullable = false)
     private String author;
 
