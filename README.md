@@ -4,7 +4,7 @@
 ToDo Blog는 사용자가 할 일 목록을 작성하고 관리할 수 있는 웹 애플리케이션입니다. 사용자는 할 일 카드를 생성, 조회, 수정, 삭제할 수 있으며, 각 할 일 카드에 댓글을 달 수 있습니다.
 
 ## 기능
-- 회원가입 및 로그인
+- 회원가입 및 로그인 (OAuth)
 - JWT 기반 인증
 - 할 일 목록 작성, 조회, 수정, 삭제
 - 댓글 작성, 수정, 삭제
@@ -18,7 +18,7 @@ ToDo Blog는 사용자가 할 일 목록을 작성하고 관리할 수 있는 �
 - ![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white) 8.4
 - ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 - ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-
+- OAuth 2.0
 ## 설치 및 실행 방법
 ### 필요 사항
 - Java 11 이상
