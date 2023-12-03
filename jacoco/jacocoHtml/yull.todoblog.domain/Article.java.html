@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Article.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.domain</a> &gt; <span class="el_source">Article.java</span></div><h1>Article.java</h1><pre class="source lang-java linenums">package yull.todoblog.domain;
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+<span class="fc" id="L16">@NoArgsConstructor(access = AccessLevel.PROTECTED)</span>
+// Article: 게시글에 관한 엔티티 클래스
+public class Article {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;, updatable = false)
+<span class="fc" id="L23">    private Long id; // 고유 ID</span>
+
+    @Column(name = &quot;title&quot;, nullable = false)
+<span class="fc" id="L26">    private String title; // 게시글 제목</span>
+
+    @Column(name = &quot;content&quot;, nullable = false)
+<span class="fc" id="L29">    private String content; // 게시글 내용</span>
+
+    @Column(name = &quot;author&quot;, nullable = false)
+<span class="fc" id="L32">    private String author;</span>
+
+    @CreatedDate
+    @Column(name = &quot;created_at&quot;)
+<span class="fc" id="L36">    private LocalDateTime createdAt; // 생성 시간</span>
+
+    @LastModifiedDate
+    @Column(name = &quot;updated_at&quot;)
+<span class="fc" id="L40">    private LocalDateTime updatedAt; // 수정 시간</span>
+
+    // 생성자
+<span class="pc" id="L43">    @Builder</span>
+<span class="fc" id="L44">    public Article(String author, String title, String content) {</span>
+<span class="fc" id="L45">        this.author = author;</span>
+<span class="fc" id="L46">        this.title = title;</span>
+<span class="fc" id="L47">        this.content = content;</span>
+<span class="fc" id="L48">    }</span>
+
+    // 게시글 수정 메서드
+    public void update(String title, String content) {
+<span class="fc" id="L52">        this.title = title;</span>
+<span class="fc" id="L53">        this.content = content;</span>
+<span class="fc" id="L54">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

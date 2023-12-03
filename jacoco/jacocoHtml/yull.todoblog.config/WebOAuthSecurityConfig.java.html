@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebOAuthSecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.config</a> &gt; <span class="el_source">WebOAuthSecurityConfig.java</span></div><h1>WebOAuthSecurityConfig.java</h1><pre class="source lang-java linenums">package yull.todoblog.config;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import yull.todoblog.config.jwt.TokenProvider;
+import yull.todoblog.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import yull.todoblog.config.oauth.OAuth2SuccessHandler;
+import yull.todoblog.config.oauth.OAuth2UserCustomService;
+import yull.todoblog.repository.RefreshTokenRepository;
+import yull.todoblog.service.UserService;
+
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
+<span class="fc" id="L24">@RequiredArgsConstructor</span>
+@Configuration
+public class WebOAuthSecurityConfig {
+
+    private final OAuth2UserCustomService oAuth2UserCustomService;
+    private final TokenProvider tokenProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final UserService userService;
+
+    @Bean
+    public WebSecurityCustomizer configure() { //스프링 시큐리티 비활성화
+<span class="fc" id="L35">        return (web) -&gt; web.ignoring()</span>
+<span class="fc" id="L36">                .requestMatchers(toH2Console())</span>
+<span class="fc" id="L37">                .requestMatchers(&quot;/img/**&quot;, &quot;/css/**&quot;, &quot;/js/**&quot;);</span>
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+<span class="fc" id="L42">        http.csrf().disable()</span>
+<span class="fc" id="L43">                .httpBasic().disable()</span>
+<span class="fc" id="L44">                .formLogin().disable()</span>
+<span class="fc" id="L45">                .logout().disable();</span>
+
+<span class="fc" id="L47">        http.sessionManagement()</span>
+<span class="fc" id="L48">                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);</span>
+
+<span class="fc" id="L50">        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);</span>
+
+
+<span class="fc" id="L53">        http.authorizeRequests()</span>
+<span class="fc" id="L54">                .requestMatchers(&quot;/api/token&quot;).permitAll()</span>
+<span class="fc" id="L55">                .requestMatchers(&quot;/api/**&quot;).authenticated()</span>
+<span class="fc" id="L56">                .anyRequest().permitAll();</span>
+
+<span class="fc" id="L58">        http.oauth2Login()</span>
+<span class="fc" id="L59">                .loginPage(&quot;/login&quot;)</span>
+<span class="fc" id="L60">                .authorizationEndpoint()</span>
+<span class="fc" id="L61">                .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())</span>
+<span class="fc" id="L62">                .and()</span>
+<span class="fc" id="L63">                .successHandler(oAuth2SuccessHandler())</span>
+<span class="fc" id="L64">                .userInfoEndpoint()</span>
+<span class="fc" id="L65">                .userService(oAuth2UserCustomService);</span>
+
+<span class="fc" id="L67">        http.logout()</span>
+<span class="fc" id="L68">                .logoutSuccessUrl(&quot;/login&quot;);</span>
+
+
+<span class="fc" id="L71">        http.exceptionHandling()</span>
+<span class="fc" id="L72">                .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),</span>
+                        new AntPathRequestMatcher(&quot;/api/**&quot;));
+
+
+<span class="fc" id="L76">        return http.build();</span>
+    }
+
+
+    @Bean
+    public OAuth2SuccessHandler oAuth2SuccessHandler() {
+<span class="fc" id="L82">        return new OAuth2SuccessHandler(tokenProvider,</span>
+                refreshTokenRepository,
+<span class="fc" id="L84">                oAuth2AuthorizationRequestBasedOnCookieRepository(),</span>
+                userService
+        );
+    }
+
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+<span class="fc" id="L91">        return new TokenAuthenticationFilter(tokenProvider);</span>
+    }
+
+    @Bean
+    public OAuth2AuthorizationRequestBasedOnCookieRepository oAuth2AuthorizationRequestBasedOnCookieRepository() {
+<span class="fc" id="L96">        return new OAuth2AuthorizationRequestBasedOnCookieRepository();</span>
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+<span class="fc" id="L101">        return new BCryptPasswordEncoder();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

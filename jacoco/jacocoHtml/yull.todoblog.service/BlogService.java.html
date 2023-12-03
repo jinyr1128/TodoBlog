@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.service</a> &gt; <span class="el_source">BlogService.java</span></div><h1>BlogService.java</h1><pre class="source lang-java linenums">package yull.todoblog.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import yull.todoblog.domain.Article;
+import yull.todoblog.dto.AddArticleRequest;
+import yull.todoblog.dto.UpdateArticleRequest;
+import yull.todoblog.repository.TodoRepository;
+
+import java.util.List;
+
+<span class="fc" id="L14">@RequiredArgsConstructor</span>
+@Service
+public class BlogService {
+
+    private  final TodoRepository todoRepository;
+
+    // 게시글 저장
+    public Article save(AddArticleRequest request, String userName) {
+<span class="fc" id="L22">        return todoRepository.save(request.toEntity(userName));</span>
+    }
+
+    // 모든 게시글 찾기
+    public List&lt;Article&gt; findAll(){
+<span class="fc" id="L27">        return todoRepository.findAll();</span>
+    }
+
+    // ID로 게시글 찾기
+    public Article findById(long id){
+<span class="fc" id="L32">        return todoRepository.findById(id)</span>
+<span class="pc" id="L33">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Article not found: &quot; + id));</span>
+    }
+
+    // 게시글 삭제
+    public void delete(long id) {
+<span class="fc" id="L38">        Article article = todoRepository.findById(id)</span>
+<span class="pc" id="L39">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;not found : &quot; + id));</span>
+
+<span class="fc" id="L41">        authorizeArticleAuthor(article);</span>
+<span class="fc" id="L42">        todoRepository.delete(article);</span>
+<span class="fc" id="L43">    }</span>
+
+    // 게시글 업데이트
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request) {
+<span class="fc" id="L48">        Article article = todoRepository.findById(id)</span>
+<span class="pc" id="L49">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;not found : &quot; + id));</span>
+
+<span class="fc" id="L51">        authorizeArticleAuthor(article);</span>
+<span class="fc" id="L52">        article.update(request.getTitle(), request.getContent());</span>
+
+<span class="fc" id="L54">        return article;</span>
+    }
+
+    // 게시글을 작성한 유저인지 확인
+    private static void authorizeArticleAuthor(Article article) {
+<span class="fc" id="L59">        String userName = SecurityContextHolder.getContext().getAuthentication().getName();</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!article.getAuthor().equals(userName)) {</span>
+<span class="nc" id="L61">            throw new IllegalArgumentException(&quot;not authorized&quot;);</span>
+        }
+<span class="fc" id="L63">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

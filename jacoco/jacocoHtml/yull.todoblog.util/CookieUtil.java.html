@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CookieUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.util</a> &gt; <span class="el_source">CookieUtil.java</span></div><h1>CookieUtil.java</h1><pre class="source lang-java linenums">package yull.todoblog.util;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.util.SerializationUtils;
+
+import java.util.Base64;
+
+<span class="nc" id="L10">public class CookieUtil {</span>
+
+    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
+<span class="fc" id="L13">        Cookie cookie = new Cookie(name, value);</span>
+<span class="fc" id="L14">        cookie.setPath(&quot;/&quot;);</span>
+<span class="fc" id="L15">        cookie.setMaxAge(maxAge);</span>
+
+<span class="fc" id="L17">        response.addCookie(cookie);</span>
+<span class="fc" id="L18">    }</span>
+
+    public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
+<span class="fc" id="L21">        Cookie[] cookies = request.getCookies();</span>
+
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (cookies == null) {</span>
+<span class="fc" id="L24">            return;</span>
+        }
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (Cookie cookie : cookies) {</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">            if (name.equals(cookie.getName())) {</span>
+<span class="fc" id="L29">                cookie.setValue(&quot;&quot;);</span>
+<span class="fc" id="L30">                cookie.setPath(&quot;/&quot;);</span>
+<span class="fc" id="L31">                cookie.setMaxAge(0);</span>
+<span class="fc" id="L32">                response.addCookie(cookie);</span>
+            }
+        }
+<span class="fc" id="L35">    }</span>
+
+    public static String serialize(Object obj) {
+<span class="fc" id="L38">        return Base64.getUrlEncoder()</span>
+<span class="fc" id="L39">                .encodeToString(SerializationUtils.serialize(obj));</span>
+    }
+
+    public static &lt;T&gt; T deserialize(Cookie cookie, Class&lt;T&gt; cls) {
+<span class="fc" id="L43">        return cls.cast(</span>
+<span class="fc" id="L44">                SerializationUtils.deserialize(</span>
+<span class="fc" id="L45">                        Base64.getUrlDecoder().decode(cookie.getValue())</span>
+                )
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2AuthorizationRequestBasedOnCookieRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.config.oauth</a> &gt; <span class="el_source">OAuth2AuthorizationRequestBasedOnCookieRepository.java</span></div><h1>OAuth2AuthorizationRequestBasedOnCookieRepository.java</h1><pre class="source lang-java linenums">package yull.todoblog.config.oauth;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import org.springframework.web.util.WebUtils;
+import yull.todoblog.util.CookieUtil;
+
+<span class="fc" id="L11">public class OAuth2AuthorizationRequestBasedOnCookieRepository implements AuthorizationRequestRepository&lt;OAuth2AuthorizationRequest&gt; {</span>
+
+    public final static String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = &quot;oauth2_auth_request&quot;;
+    private final static int COOKIE_EXPIRE_SECONDS = 18000;
+
+    @Override
+    public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request, HttpServletResponse response) {
+<span class="nc" id="L18">        return this.loadAuthorizationRequest(request);</span>
+    }
+
+    @Override
+    public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
+<span class="nc" id="L23">        Cookie cookie = WebUtils.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);</span>
+<span class="nc" id="L24">        return CookieUtil.deserialize(cookie, OAuth2AuthorizationRequest.class);</span>
+    }
+
+    @Override
+    public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (authorizationRequest == null) {</span>
+<span class="nc" id="L30">            removeAuthorizationRequestCookies(request, response);</span>
+<span class="nc" id="L31">            return;</span>
+        }
+
+<span class="nc" id="L34">        CookieUtil.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtil.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);</span>
+<span class="nc" id="L35">    }</span>
+
+    public void removeAuthorizationRequestCookies(HttpServletRequest request, HttpServletResponse response) {
+<span class="nc" id="L38">        CookieUtil.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);</span>
+<span class="nc" id="L39">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OAuth2UserCustomService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.config.oauth</a> &gt; <span class="el_source">OAuth2UserCustomService.java</span></div><h1>OAuth2UserCustomService.java</h1><pre class="source lang-java linenums">package yull.todoblog.config.oauth;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Service;
+import yull.todoblog.domain.User;
+import yull.todoblog.repository.UserRepository;
+
+import java.util.Map;
+
+<span class="fc" id="L14">@RequiredArgsConstructor</span>
+@Service
+public class OAuth2UserCustomService extends DefaultOAuth2UserService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+<span class="nc" id="L22">        OAuth2User user = super.loadUser(userRequest); // ❶ 요청을 바탕으로 유저 정보를 담은 객체 반환</span>
+<span class="nc" id="L23">        saveOrUpdate(user);</span>
+
+<span class="nc" id="L25">        return user;</span>
+    }
+
+    // ❷ 유저가 있으면 업데이트, 없으면 유저 생성
+    private User saveOrUpdate(OAuth2User oAuth2User) {
+<span class="nc" id="L30">        Map&lt;String, Object&gt; attributes = oAuth2User.getAttributes();</span>
+
+<span class="nc" id="L32">        String email = (String) attributes.get(&quot;email&quot;);</span>
+<span class="nc" id="L33">        String name = (String) attributes.get(&quot;name&quot;);</span>
+
+<span class="nc" id="L35">        User user = userRepository.findByEmail(email)</span>
+<span class="nc" id="L36">                .map(entity -&gt; entity.update(name))</span>
+<span class="nc" id="L37">                .orElse(User.builder()</span>
+<span class="nc" id="L38">                        .email(email)</span>
+<span class="nc" id="L39">                        .nickname(name)</span>
+<span class="nc" id="L40">                        .build());</span>
+
+<span class="nc" id="L42">        return userRepository.save(user);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TokenProvider.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TodoBlog</a> &gt; <a href="index.source.html" class="el_package">yull.todoblog.config.jwt</a> &gt; <span class="el_source">TokenProvider.java</span></div><h1>TokenProvider.java</h1><pre class="source lang-java linenums">package yull.todoblog.config.jwt;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+import yull.todoblog.domain.User;
+
+import java.time.Duration;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Set;
+
+<span class="fc" id="L19">@RequiredArgsConstructor</span>
+@Service
+public class TokenProvider {
+
+    private final JwtProperties jwtProperties;
+
+    public String generateToken(User user, Duration expiredAt) {
+<span class="fc" id="L26">        Date now = new Date();</span>
+<span class="fc" id="L27">        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), user);</span>
+    }
+
+    private String makeToken(Date expiry, User user) {
+<span class="fc" id="L31">        Date now = new Date();</span>
+
+<span class="fc" id="L33">        return Jwts.builder()</span>
+<span class="fc" id="L34">                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)</span>
+<span class="fc" id="L35">                .setIssuer(jwtProperties.getIssuer())</span>
+<span class="fc" id="L36">                .setIssuedAt(now)</span>
+<span class="fc" id="L37">                .setExpiration(expiry)</span>
+<span class="fc" id="L38">                .setSubject(user.getEmail())</span>
+<span class="fc" id="L39">                .claim(&quot;id&quot;, user.getId())</span>
+<span class="fc" id="L40">                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())</span>
+<span class="fc" id="L41">                .compact();</span>
+    }
+
+    public boolean validToken(String token) {
+        try {
+<span class="fc" id="L46">            Jwts.parser()</span>
+<span class="fc" id="L47">                    .setSigningKey(jwtProperties.getSecretKey())</span>
+<span class="fc" id="L48">                    .parseClaimsJws(token);</span>
+
+<span class="fc" id="L50">            return true;</span>
+<span class="fc" id="L51">        } catch (Exception e) {</span>
+<span class="fc" id="L52">            return false;</span>
+        }
+    }
+
+
+    public Authentication getAuthentication(String token) {
+<span class="fc" id="L58">        Claims claims = getClaims(token);</span>
+<span class="fc" id="L59">        Set&lt;SimpleGrantedAuthority&gt; authorities = Collections.singleton(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span>
+
+<span class="fc" id="L61">        return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(claims.getSubject</span>
+<span class="fc" id="L62">                (), &quot;&quot;, authorities), token, authorities);</span>
+    }
+
+    public Long getUserId(String token) {
+<span class="fc" id="L66">        Claims claims = getClaims(token);</span>
+<span class="fc" id="L67">        return claims.get(&quot;id&quot;, Long.class);</span>
+    }
+
+    private Claims getClaims(String token) {
+<span class="fc" id="L71">        return Jwts.parser()</span>
+<span class="fc" id="L72">                .setSigningKey(jwtProperties.getSecretKey())</span>
+<span class="fc" id="L73">                .parseClaimsJws(token)</span>
+<span class="fc" id="L74">                .getBody();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
