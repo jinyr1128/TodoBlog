@@ -16,10 +16,10 @@ spring:
       client:
         registration:
           google:
-            client-id: ******
-            client-secret: ****
+            client-id: ***********************
+            client-secret: ***************
             scope:
               - email
               - profile
 jwt:
-  secret_key: *****
+  secret_key: ************************
