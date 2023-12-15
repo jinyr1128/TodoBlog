@@ -1,15 +1,15 @@
 package yull.todoblog.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import yull.todoblog.domain.Article;
-import yull.todoblog.domain.Comment;
-import yull.todoblog.repository.CommentRepository;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.comment.service.CommentService;
+import yull.todoblog.comment.domain.Comment;
+import yull.todoblog.comment.repository.CommentRepository;
 
 import java.util.Optional;
 

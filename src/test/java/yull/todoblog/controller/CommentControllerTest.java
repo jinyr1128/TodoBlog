@@ -9,9 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import yull.todoblog.service.CommentService;
-import yull.todoblog.domain.Article;
-import yull.todoblog.domain.Comment;
+import yull.todoblog.comment.controller.CommentController;
+import yull.todoblog.comment.service.CommentService;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.comment.domain.Comment;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;

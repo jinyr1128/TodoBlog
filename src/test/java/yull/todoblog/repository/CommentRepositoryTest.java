@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import yull.todoblog.domain.Article;
-import yull.todoblog.domain.Comment;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.comment.repository.CommentRepository;
+import yull.todoblog.comment.domain.Comment;
 
 import java.util.List;
 

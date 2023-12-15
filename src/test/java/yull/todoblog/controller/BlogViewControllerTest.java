@@ -8,8 +8,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import yull.todoblog.domain.Article;
-import yull.todoblog.service.BlogService;
+import yull.todoblog.article.controller.BlogViewController;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.article.service.BlogService;
 
 import java.util.Arrays;
 import java.util.List;

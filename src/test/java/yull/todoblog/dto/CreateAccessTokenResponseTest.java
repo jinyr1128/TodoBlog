@@ -1,8 +1,8 @@
 package yull.todoblog.dto;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
+import yull.todoblog.common.security.dto.CreateAccessTokenResponse;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateAccessTokenResponseTest {

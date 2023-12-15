@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import yull.todoblog.domain.RefreshToken;
-import yull.todoblog.repository.RefreshTokenRepository;
+import yull.todoblog.common.security.domain.RefreshToken;
+import yull.todoblog.common.security.repository.RefreshTokenRepository;
+import yull.todoblog.common.security.service.RefreshTokenService;
 
 import java.util.Optional;
 

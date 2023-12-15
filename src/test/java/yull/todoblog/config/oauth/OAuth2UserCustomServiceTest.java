@@ -12,8 +12,9 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import yull.todoblog.domain.User;
-import yull.todoblog.repository.UserRepository;
+import yull.todoblog.common.config.oauth.OAuth2UserCustomService;
+import yull.todoblog.user.domain.User;
+import yull.todoblog.user.repository.UserRepository;
 
 import java.time.Instant;
 

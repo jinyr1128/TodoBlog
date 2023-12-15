@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.util.SerializationUtils;
+import yull.todoblog.common.util.CookieUtil;
 
 import java.util.Base64;
 

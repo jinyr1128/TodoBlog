@@ -9,10 +9,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import yull.todoblog.domain.Article;
-import yull.todoblog.dto.AddArticleRequest;
-import yull.todoblog.dto.UpdateArticleRequest;
-import yull.todoblog.repository.TodoRepository;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.article.dto.AddArticleRequest;
+import yull.todoblog.article.dto.UpdateArticleRequest;
+import yull.todoblog.article.repository.TodoRepository;
+import yull.todoblog.article.service.BlogService;
 
 import java.util.Arrays;
 import java.util.List;

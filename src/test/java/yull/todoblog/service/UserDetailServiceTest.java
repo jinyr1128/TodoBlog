@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import yull.todoblog.domain.User;
-import yull.todoblog.repository.UserRepository;
+import yull.todoblog.user.domain.User;
+import yull.todoblog.user.repository.UserRepository;
+import yull.todoblog.user.service.UserDetailService;
 
 import java.util.Optional;
 

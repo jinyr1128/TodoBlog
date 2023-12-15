@@ -1,13 +1,12 @@
 package yull.todoblog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import yull.todoblog.domain.Article;
-import yull.todoblog.domain.User;
-import yull.todoblog.dto.AddArticleRequest;
-import yull.todoblog.dto.UpdateArticleRequest;
-import yull.todoblog.repository.TodoRepository;
-import yull.todoblog.repository.UserRepository;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.user.domain.User;
+import yull.todoblog.article.dto.AddArticleRequest;
+import yull.todoblog.article.dto.UpdateArticleRequest;
+import yull.todoblog.article.repository.TodoRepository;
+import yull.todoblog.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,8 @@
 package yull.todoblog.dto;
 
 import org.junit.jupiter.api.Test;
-import yull.todoblog.domain.Article;
+import yull.todoblog.article.domain.Article;
+import yull.todoblog.article.dto.AddArticleRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import yull.todoblog.domain.RefreshToken;
-import yull.todoblog.domain.User;
+import yull.todoblog.common.security.domain.RefreshToken;
+import yull.todoblog.common.security.repository.RefreshTokenRepository;
+import yull.todoblog.user.domain.User;
 
 import java.util.Optional;
 

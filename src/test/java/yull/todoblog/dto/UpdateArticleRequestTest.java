@@ -2,6 +2,7 @@ package yull.todoblog.dto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import yull.todoblog.article.dto.UpdateArticleRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -11,11 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import yull.todoblog.config.jwt.TokenProvider;
-import yull.todoblog.domain.RefreshToken;
-import yull.todoblog.domain.User;
-import yull.todoblog.repository.RefreshTokenRepository;
-import yull.todoblog.service.UserService;
+import yull.todoblog.common.config.jwt.TokenProvider;
+import yull.todoblog.common.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import yull.todoblog.common.config.oauth.OAuth2SuccessHandler;
+import yull.todoblog.common.security.domain.RefreshToken;
+import yull.todoblog.user.domain.User;
+import yull.todoblog.common.security.repository.RefreshTokenRepository;
+import yull.todoblog.user.service.UserService;
 
 import java.io.IOException;
 import java.time.Duration;

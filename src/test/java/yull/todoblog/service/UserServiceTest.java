@@ -8,9 +8,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
-import yull.todoblog.domain.User;
-import yull.todoblog.dto.AddUserRequest;
-import yull.todoblog.repository.UserRepository;
+import yull.todoblog.user.domain.User;
+import yull.todoblog.user.dto.AddUserRequest;
+import yull.todoblog.user.repository.UserRepository;
+import yull.todoblog.user.service.UserService;
 
 import java.util.Optional;
 

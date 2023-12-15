@@ -9,8 +9,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import yull.todoblog.dto.AddUserRequest;
-import yull.todoblog.service.UserService;
+import yull.todoblog.user.dto.AddUserRequest;
+import yull.todoblog.user.controller.UserApiController;
+import yull.todoblog.user.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
