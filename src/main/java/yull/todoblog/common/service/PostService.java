@@ -1,7 +1,9 @@
 package yull.todoblog.common.service;
 
+
 import yull.todoblog.article.dto.ArticleResponse;
-import yull.todoblog.common.dto.PostRequestDto;
+import yull.todoblog.common.dto.ArticleRequestDto;
+
 import yull.todoblog.user.domain.User;
 
 public interface PostService {
@@ -11,5 +13,5 @@ public interface PostService {
      * @param user 게시글 생성 요청자
      * @return 게시글 생성 결과
      */
-    ArticleResponse createPost(PostRequestDto requestDto, User user);
+    ArticleResponse createPost(ArticleRequestDto requestDto, User user);
 }
