@@ -38,3 +38,4 @@ public class ThreadRepositoryQueryImpl implements ThreadRepositoryQuery {
         return QThread.thread.channel.id.eq(channelId);
     }
 }
+//어 뭐야...왜 이젠 되지????
