@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import yull.todoblog.user.domain.User;
 
 import java.time.LocalDateTime;
 
@@ -51,5 +52,13 @@ public class Article {
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }    // 생성자
+    public Article(String title, String content) {
+        // 초기화 로직
+    }
+
+    // setUser 메서드
+    public void setUser(User user) {
+        // 사용자 설정 로직
     }
 }
