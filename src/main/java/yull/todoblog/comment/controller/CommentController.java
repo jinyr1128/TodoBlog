@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yull.todoblog.article.domain.Article;
 import yull.todoblog.comment.domain.Comment;
+import yull.todoblog.comment.dto.CreateCommentRequest;
+import yull.todoblog.comment.dto.UpdateCommentRequest;
 import yull.todoblog.comment.service.CommentService;
 
 @RestController
@@ -17,17 +19,17 @@ public class CommentController {
     // 댓글 작성 API
     @PostMapping("/articles/{articleId}/comments")
     public ResponseEntity<Comment> createComment(@PathVariable Long articleId,
-                                                 @RequestBody String content,
-                                                 Article article) {
-        Comment newComment = commentService.createComment(articleId, content, article);
+                                                 @RequestBody CreateCommentRequest request) {
+        Comment newComment = commentService.createComment(articleId, request.getContent());
         return ResponseEntity.status(HttpStatus.CREATED).body(newComment);
     }
+
 
     // 댓글 수정 API
     @PutMapping("/comments/{commentId}")
     public ResponseEntity<Comment> updateComment(@PathVariable Long commentId,
-                                                 @RequestBody String content) {
-        Comment updatedComment = commentService.updateComment(commentId, content);
+                                                 @RequestBody UpdateCommentRequest request) {
+        Comment updatedComment = commentService.updateComment(commentId, request.getContent());
         return ResponseEntity.ok(updatedComment);
     }
 
