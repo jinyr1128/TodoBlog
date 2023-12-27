@@ -62,6 +62,7 @@ ToDo Blog는 사용자가 할 일 목록을 작성하고 관리할 수 있는 �
 ![스크린샷 2023-11-20 오전 11.08.52.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-20%20%EC%98%A4%EC%A0%84%2011.08.52.png)
 
 ## 디렉토리 구조(Ver.2)
+
 src
     ├── main
     │   ├── generated
@@ -250,6 +251,7 @@ src
                     │   └── UserServiceTest.java
                     └── util
                         └── CookieUtilTest.java
+                        
                         
 ## 다이어그램
 ![spring_boot_structure_diagram.png](img%2Fspring_boot_structure_diagram.png)
