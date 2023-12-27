@@ -255,8 +255,6 @@ src
 ```
                         
                         
-## 다이어그램
-![spring_boot_structure_diagram.png](img%2Fspring_boot_structure_diagram.png)
 ## 테스트 코드
 ![스크린샷 2023-12-04 오전 12.30.01.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-12-04%20%EC%98%A4%EC%A0%84%2012.30.01.png)
 ## 프로젝트 회고
