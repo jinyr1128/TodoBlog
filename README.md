@@ -58,8 +58,199 @@ ToDo Blog는 사용자가 할 일 목록을 작성하고 관리할 수 있는 �
 
 ## ERD
 ![스크린샷 2023-11-20 오전 11.01.43.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-20%20%EC%98%A4%EC%A0%84%2011.01.43.png)
-## 디렉토리 구조
+## 디렉토리 구조(Ver.1)
 ![스크린샷 2023-11-20 오전 11.08.52.png](img%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-11-20%20%EC%98%A4%EC%A0%84%2011.08.52.png)
+
+## 디렉토리 구조(Ver.2)
+src
+    ├── main
+    │   ├── generated
+    │   │   └── yull
+    │   │       └── todoblog
+    │   │           ├── article
+    │   │           │   └── domain
+    │   │           │       └── QArticle.java
+    │   │           ├── channel
+    │   │           │   └── domain
+    │   │           │       └── QChannel.java
+    │   │           ├── comment
+    │   │           │   └── domain
+    │   │           │       └── QComment.java
+    │   │           ├── common
+    │   │           │   ├── security
+    │   │           │   │   └── domain
+    │   │           │   │       └── QRefreshToken.java
+    │   │           │   └── thread
+    │   │           │       └── QThread.java
+    │   │           └── user
+    │   │               └── domain
+    │   │                   └── QUser.java
+    │   ├── java
+    │   │   └── yull
+    │   │       └── todoblog
+    │   │           ├── TodoBlogApplication.java
+    │   │           ├── article
+    │   │           │   ├── controller
+    │   │           │   │   ├── BlogViewController.java
+    │   │           │   │   └── TodoApiController.java
+    │   │           │   ├── domain
+    │   │           │   │   └── Article.java
+    │   │           │   ├── dto
+    │   │           │   │   ├── AddArticleRequest.java
+    │   │           │   │   ├── ArticleListViewResponse.java
+    │   │           │   │   ├── ArticleResponse.java
+    │   │           │   │   ├── ArticleViewResponse.java
+    │   │           │   │   └── UpdateArticleRequest.java
+    │   │           │   ├── repository
+    │   │           │   │   ├── ArticleRepository.java
+    │   │           │   │   └── TodoRepository.java
+    │   │           │   └── service
+    │   │           │       └── BlogService.java
+    │   │           ├── channel
+    │   │           │   ├── domain
+    │   │           │   │   └── Channel.java
+    │   │           │   └── dto
+    │   │           ├── comment
+    │   │           │   ├── controller
+    │   │           │   │   └── CommentController.java
+    │   │           │   ├── domain
+    │   │           │   │   └── Comment.java
+    │   │           │   ├── dto
+    │   │           │   │   ├── CreateCommentRequest.java
+    │   │           │   │   └── UpdateCommentRequest.java
+    │   │           │   ├── repository
+    │   │           │   │   └── CommentRepository.java
+    │   │           │   └── service
+    │   │           │       └── CommentService.java
+    │   │           ├── common
+    │   │           │   ├── aop
+    │   │           │   │   └── ParameterAop.java
+    │   │           │   ├── config
+    │   │           │   │   ├── QuerydslConfig.java
+    │   │           │   │   ├── TokenAuthenticationFilter.java
+    │   │           │   │   ├── WebOAuthSecurityConfig.java
+    │   │           │   │   ├── WebSecurityConfig.java
+    │   │           │   │   ├── jwt
+    │   │           │   │   │   ├── JwtProperties.java
+    │   │           │   │   │   └── TokenProvider.java
+    │   │           │   │   └── oauth
+    │   │           │   │       ├── OAuth2AuthorizationRequestBasedOnCookieRepository.java
+    │   │           │   │       ├── OAuth2SuccessHandler.java
+    │   │           │   │       └── OAuth2UserCustomService.java
+    │   │           │   ├── controller
+    │   │           │   │   └── GlobalControllerAdvice.java
+    │   │           │   ├── dto
+    │   │           │   │   ├── ApiResponseDto.java
+    │   │           │   │   ├── ArticleRequestDto.java
+    │   │           │   │   └── ArticleResponseDto.java
+    │   │           │   ├── exception
+    │   │           │   │   ├── GlobalExceptionHandler.java
+    │   │           │   │   └── NotFoundException.java
+    │   │           │   ├── repository
+    │   │           │   │   └── ArticleRepository.java
+    │   │           │   ├── security
+    │   │           │   │   ├── controller
+    │   │           │   │   │   └── TokenApiController.java
+    │   │           │   │   ├── domain
+    │   │           │   │   │   └── RefreshToken.java
+    │   │           │   │   ├── dto
+    │   │           │   │   │   ├── CreateAccessTokenRequest.java
+    │   │           │   │   │   └── CreateAccessTokenResponse.java
+    │   │           │   │   ├── repository
+    │   │           │   │   │   └── RefreshTokenRepository.java
+    │   │           │   │   └── service
+    │   │           │   │       ├── RefreshTokenService.java
+    │   │           │   │       └── TokenService.java
+    │   │           │   ├── service
+    │   │           │   │   ├── ArticleService.java
+    │   │           │   │   ├── PostService.java
+    │   │           │   │   └── impl
+    │   │           │   │       └── ArticleServiceImpl.java
+    │   │           │   ├── thread
+    │   │           │   │   ├── Thread.java
+    │   │           │   │   ├── ThreadRepositoryQuery.java
+    │   │           │   │   ├── ThreadRepositoryQueryImpl.java
+    │   │           │   │   └── ThreadSearchCond.java
+    │   │           │   └── util
+    │   │           │       └── CookieUtil.java
+    │   │           └── user
+    │   │               ├── controller
+    │   │               │   ├── UserApiController.java
+    │   │               │   └── UserViewController.java
+    │   │               ├── domain
+    │   │               │   └── User.java
+    │   │               ├── dto
+    │   │               │   ├── AddUserRequest.java
+    │   │               │   └── LoginRequest.java
+    │   │               ├── repository
+    │   │               │   └── UserRepository.java
+    │   │               └── service
+    │   │                   ├── UserDetailService.java
+    │   │                   └── UserService.java
+    │   └── resources
+    │       ├── application.yml
+    │       ├── data.sql
+    │       ├── static
+    │       │   ├── img
+    │       │   │   └── google.png
+    │       │   └── js
+    │       │       ├── article.js
+    │       │       └── token.js
+    │       └── templates
+    │           ├── article.html
+    │           ├── articleList.html
+    │           ├── login.html
+    │           ├── newArticle.html
+    │           ├── oauthLogin.html
+    │           └── signup.html
+    ├── querydsl
+    │   └── java
+    └── test
+        └── java
+            └── yull
+                └── todoblog
+                    ├── TodoBlogApplicationTests.java
+                    ├── config
+                    │   ├── jwt
+                    │   │   ├── JwtFactory.java
+                    │   │   └── TokenProviderTest.java
+                    │   └── oauth
+                    │       ├── OAuth2SuccessHandlerTest.java
+                    │       └── OAuth2UserCustomServiceTest.java
+                    ├── controller
+                    │   ├── BlogViewControllerTest.java
+                    │   ├── CommentControllerTest.java
+                    │   ├── TodoApiControllerTest.java
+                    │   ├── TokenApiControllerTest.java
+                    │   └── UserApiControllerTest.java
+                    ├── domain
+                    │   ├── ArticleTest.java
+                    │   ├── CommentTest.java
+                    │   └── UserTest.java
+                    ├── dto
+                    │   ├── AddArticleRequestTest.java
+                    │   ├── AddUserRequestTest.java
+                    │   ├── ArticleListViewResponseTest.java
+                    │   ├── ArticleResponseTest.java
+                    │   ├── ArticleViewResponseTest.java
+                    │   ├── CreateAccessTokenRequestTest.java
+                    │   ├── CreateAccessTokenResponseTest.java
+                    │   ├── LoginRequestTest.java
+                    │   └── UpdateArticleRequestTest.java
+                    ├── repository
+                    │   ├── CommentRepositoryTest.java
+                    │   ├── RefreshTokenRepositoryTest.java
+                    │   ├── TodoRepositoryTest.java
+                    │   └── UserRepositoryTest.java
+                    ├── service
+                    │   ├── BlogServiceTest.java
+                    │   ├── CommentServiceTest.java
+                    │   ├── RefreshTokenServiceTest.java
+                    │   ├── UserDetailServiceTest.java
+                    │   └── UserServiceTest.java
+                    └── util
+                        └── CookieUtilTest.java
+                        
 ## 다이어그램
 ![spring_boot_structure_diagram.png](img%2Fspring_boot_structure_diagram.png)
 ## 테스트 코드
